@@ -1,15 +1,16 @@
 <template>
-  <div class="min-h-screen bg-gray-100 flex items-center justify-center">
-    <h1 class="text-4xl font-bold text-blue-500">
-      Hello Nuxt.js with Tailwind CSS!
-    </h1>
+  <div>
+    <CardBox />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-
+import CardBox from "@/components/CardBox/index.vue";
 export default Vue.extend({
   name: "IndexPage",
+  components: {
+    CardBox,
+  },
 });
 </script>
