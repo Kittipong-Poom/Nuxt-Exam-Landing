@@ -32,9 +32,10 @@
 
 <script lang="ts">
 import ModalBox from "@/components/Modal/index.vue";
+import Vue from "vue";
 
-export default {
-    name: "CardBox",
+export default Vue.extend ({ 
+      name: "CardBox",
     components: {
         ModalBox,
     },
@@ -50,7 +51,7 @@ export default {
         closeModal(): void {
             this.isModalOpen = false;
         },
-    },
-};
+    },  
+    })
 
 </script>
