@@ -27,9 +27,9 @@
 <script lang="ts">
 
 import CardBox from "@/components/Cards/index.vue";
-
+import Vue from "vue";
 type TabType = "all" | "launched" | "upcoming";
-export default ({
+export default Vue.extend ({
   name: "Taps",
   components: {
     CardBox,
