@@ -2,7 +2,7 @@
     <div class="justify-center flex mt-6">
         <div class="space-y-4 w-[600px] ">
             <div class="border-2 border-slate-50 bg-slate-50 shadow-lg rounded-lg cursor-pointer hover:opacity-90 hover:scale-90 active:scale-95 transition duration-300"
-            @click="openModal">
+                @click="openModal">
                 <div class=" justify-between items-center p-4 grid grid-cols-2 gap-4 ">
                     <div class="flex items-center text-2xl">
                         <div class="mr-4">
@@ -38,19 +38,19 @@ export default {
     components: {
         ModalBox,
     },
-    data() {
+    data(): { isModalOpen: boolean } {
         return {
             isModalOpen: false,
-        }
+        };
     },
     methods: {
-        openModal() {
+        openModal(): void {
             this.isModalOpen = true;
         },
-        closeModal() {
+        closeModal(): void {
             this.isModalOpen = false;
-        }   
-    }
+        },
+    },
 };
 
 </script>
