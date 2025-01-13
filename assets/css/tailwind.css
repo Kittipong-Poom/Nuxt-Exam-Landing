@@ -5,3 +5,15 @@
 body{
     @apply bg-gray-100
 }
+
+.card {
+    will-change: transform;
+    transform-origin: center; /* ปรับการเปลี่ยนขนาดให้เป็นศูนย์กลาง */
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+  .card:hover {
+    transform: scale(0.95); /* ลดขนาดเมื่อ hover */
+  }
+  .card:active {
+    transform: scale(0.9); /* ลดขนาดเพิ่มเมื่อกด */
+  }

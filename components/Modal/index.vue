@@ -9,9 +9,9 @@
         </div>
         <div class="bg-white w-[650px] rounded-lg shadow-lg p-6">
             <div class="flex-row items-center border-b pb-4">
-                <h2 class="font-bold text-lg text-center w-full">Crew Details</h2>
+                <h2 class="font-bold text-lg text-center w-full">{{ launch?.name }}</h2>
                 <div class="justify-center text-center mt-3 font-light">
-                    <p>Date mount</p>
+                    <p>{{ launch?.date_utc ? new Date(launch.date_utc).toDateString(): 'No Date Available' }}</p>
                 </div>
             </div>
             <div class="mt-4 flex flex-col items-center border-b pb-4">
@@ -51,7 +51,7 @@
                 </div>
                 <div class="text-center">
                     <h2 class="text-xl font-medium">
-                        Falcon 9 
+                        Falcon 9
                     </h2>
                     <img src="your-image-url" alt="Rocket Image" class="mt-4 w-[300px] h-auto" />
                 </div>
@@ -85,10 +85,10 @@
                 <!-- ส่วนของ รายละเอียด -->
                 <div class="text-center ">
                     <h2 class="text-xl font-light ">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates vel libero, 
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates vel libero,
                         laborum consectetur aliquid eaque dolores consequatur optio totam quia sequi,
-                        praesentium sapiente, numquam fugiat repellendus quasi aut fuga voluptatum assumenda 
-                        culpa dolore rem possimus mollitia. Nobis quibusdam voluptatibus ducimus debitis accusamus 
+                        praesentium sapiente, numquam fugiat repellendus quasi aut fuga voluptatum assumenda
+                        culpa dolore rem possimus mollitia. Nobis quibusdam voluptatibus ducimus debitis accusamus
                         voluptates velit pariatur placeat. Ad beatae hic tempore.
                     </h2>
                 </div>
@@ -99,14 +99,33 @@
 
 <script lang="ts">
 import Vue from 'vue';
-
-export default Vue.extend  ({ 
+import { fetchUpcomingLaunches } from '~/apis/Launched';
+import { Launch } from '~/types/Launch';
+export default Vue.extend({
     name: "Modal",
     props: {
         isVisible: {
             type: Boolean,
             required: true,
         },
+        launch: {
+            type: Object as () => Launch | null,
+            required: false,
+            default: null,
+        },
+    },
+    data(): { launches: Launch[], } {
+        return {
+            launches: [] as Launch[],
+        };
+    },
+    async created() {
+        try {
+            const allLaunches = await fetchUpcomingLaunches();
+            this.launches = allLaunches; // เก็บข้อมูลทั้งหมด
+        } catch (error) {
+            console.error('Failed to fetch launches:', error);
+        }
     },
 });
 </script>
