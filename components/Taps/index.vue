@@ -1,5 +1,5 @@
 <template>
-  <div class=" items-center min-h-screen  bg-gray-100 pt-6">
+  <div class=" items-center bg-gray-100 pt-6">
     <div class=" justify-center  rounded-lg  flex">
       <!-- Tab: All -->
       <button :class="tab === 'all' ? 'bg-indigo-600 text-white' : 'bg-white text-gray-600 '"
@@ -20,20 +20,18 @@
         Upcoming
       </button>
     </div>
-    <CardBox />
+    
   </div>
 </template>
 
 <script lang="ts">
 
-import CardBox from "@/components/Cards/index.vue";
+
 import Vue from "vue";
 type TabType = "all" | "launched" | "upcoming";
 export default Vue.extend ({
   name: "Taps",
-  components: {
-    CardBox,
-  },
+
   data(): { tab: TabType  } {
     return {
       tab: "all",

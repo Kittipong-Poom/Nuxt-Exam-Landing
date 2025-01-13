@@ -1,4 +1,5 @@
-// กำหนด Type ของข้อมูลที่ได้รับจาก API
+
+
 export interface Launch {
     id: string;
     name: string;
@@ -11,4 +12,5 @@ export interface Launch {
         large: string | null;
       };
     };
+    launchpad?: string; 
   } 
