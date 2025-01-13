@@ -4,6 +4,7 @@ export interface Launch {
     name: string;
     date_utc: string;
     rocket: string;
+    crew: string[];
     links: {
       patch: {
         small: string | null;

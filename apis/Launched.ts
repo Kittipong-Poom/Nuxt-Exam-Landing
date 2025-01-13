@@ -2,7 +2,7 @@
 import axios from 'axios';
 import { Launch } from '~/types/Launch';  // ตรวจสอบให้แน่ใจว่า import ถูกต้อง
 
-const API_LAUNCHES = 'https://api.spacexdata.com/v5';
+const API_LAUNCHES = 'https://api.spacexdata.com/v4';
 
 export const fetchUpcomingLaunches = async (): Promise<Launch[]> => {
   try {
@@ -12,4 +12,5 @@ export const fetchUpcomingLaunches = async (): Promise<Launch[]> => {
     console.error('Error fetching upcoming launches:', error);
     throw error;
   }
+  
 };
