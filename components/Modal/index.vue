@@ -14,20 +14,20 @@
                     <p>{{ launch?.date_utc ? new Date(launch.date_utc).toDateString() : 'No Date Available' }}</p>
                 </div>
             </div>
-            <div class="mt-4 flex flex-col items-center border-b pb-4">
+            <div :class="{'border-b': crewTeams.length > 0}" class="mt-4 flex flex-col items-center  pb-4">
                 <!-- Title -->
-                <h3 class="bg-blue-700 text-white p-1 rounded-full font-medium w-[70px] text-center">Crews</h3>
+                <h3 v-if="crewTeams.length > 0" class="bg-blue-700 text-white p-1 rounded-full font-medium w-[70px] text-center">Crews</h3>
 
                 <!-- Grid -->
-                <div v-if="crewDetails.length > 0" class="mt-4 grid grid-cols-4 gap-6">
-                    <div v-for="crew in crewDetails" :key="crew.id" class="text-center">
+                <div v-if="crewTeams.length > 0" class="mt-4 grid grid-cols-4 gap-6">
+                    <div v-for="crew in crewTeams" :key="crew.id" class="text-center">
                         <img :src="crew.image" alt="Crew Member"
                             class="bg-gray-300 w-[100px] h-[100px] mx-auto rounded-full" />
                         <h2 class="mt-2 font-medium">{{ crew.name }}</h2>
                         <p class="text-sm text-gray-500">{{ crew.agency }}</p>
                     </div>
                 </div>
-                <div v-else class="mt-4 text-center text-gray-500">No Crew Members</div>
+                
             </div>
             <!--- Rocket จรวด -->
             <div class="mt-4 flex flex-col items-center border-b pb-4">
@@ -54,12 +54,12 @@
                     </h3>
                 </div>
 
-                <!-- ส่วนของ เนื้อหา -->
-                <div class="text-center grid">
+                <!-- ส่วนของ รายละเอียด -->
+                <div class="text-start grid">
                     <h2 class="text-xl font-medium">
-                        Launchpad: {{ launchpad?.full_name }}
+                        {{ launchpad?.full_name }}
                     </h2>
-                    <h2 class="text-xl font-medium">Locality : {{ launchpad?.locality }}</h2>
+                    <!-- <h2 class="text-xl font-medium">Locality : {{ launchpad?.locality }}</h2> -->
                 </div>
             </div>
             <!--หัว Detail รายละเอียด -->
@@ -85,7 +85,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import { fetchUpcomingLaunches } from '~/apis/Launched';
-import { fetchCrewDetails } from '@/apis/Crews';
+import { fetchCrewTeams } from '@/apis/Crews';
 import { fetchRocketDetails } from '~/apis/Rocket';
 import { fetchLaunchpadsById } from '@/apis/Launchpads';
 import { Launch } from '~/types/Launch';
@@ -107,10 +107,10 @@ export default Vue.extend({
             default: null,
         },
     },
-    data(): { launches: Launch[], crewDetails: Crew[], rocket: Rocket | null, launchpad: Launchpads | null, } {
+    data(): { launches: Launch[], crewTeams: Crew[], rocket: Rocket | null, launchpad: Launchpads | null, } {
         return {
             launches: [] as Launch[],
-            crewDetails: [] as Crew[],
+            crewTeams: [] as Crew[],
             rocket: null,
             launchpad: null,
         };
@@ -122,7 +122,7 @@ export default Vue.extend({
                 if (newLaunch && newLaunch.crew && newLaunch.crew.length > 0) {
                     this.loadCrewDetails(newLaunch.crew);
                 } else {
-                    this.crewDetails = [];
+                    this.crewTeams = [];
                 }
 
                 if (newLaunch && newLaunch.rocket) {
@@ -143,7 +143,7 @@ export default Vue.extend({
     methods: {
         async loadCrewDetails(crewIds: string[]) {
             try {
-                this.crewDetails = await fetchCrewDetails(crewIds);
+                this.crewTeams = await fetchCrewTeams(crewIds);
             } catch (error) {
                 console.error('Failed to fetch crew details:', error);
             }

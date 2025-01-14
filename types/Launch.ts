@@ -5,6 +5,7 @@ export interface Launch {
     name: string;
     date_utc: string;
     rocket: string;
+    upcoming: boolean;
     crew: string[];
     links: {
       patch: {

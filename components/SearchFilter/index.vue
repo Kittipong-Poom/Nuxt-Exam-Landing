@@ -6,7 +6,7 @@
                 type="text" 
                 v-model="searchQuery"
                 @input="$emit('search', searchQuery)" 
-                placeholder="Search..."
+                placeholder="ค้นหาวันที่และชื่อ..."
                 class="w-full p-2 pl-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" 
             />
             <svg class="absolute left-3 top-2.5 w-5 h-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none"
