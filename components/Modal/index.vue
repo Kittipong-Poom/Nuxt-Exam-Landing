@@ -83,7 +83,6 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
 import { fetchUpcomingLaunches } from '~/apis/Launched';
 import { fetchCrewTeams } from '@/apis/Crews';
 import { fetchRocketDetails } from '~/apis/Rocket';
@@ -92,6 +91,7 @@ import { Launch } from '~/types/Launch';
 import { Crew } from '~/types/Crews';
 import { Rocket } from '~/types/Rocket';
 import { Launchpads } from '~/types/Launchpad';
+import Vue from 'vue';
 
 
 export default Vue.extend({

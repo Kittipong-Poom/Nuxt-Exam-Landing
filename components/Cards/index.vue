@@ -43,11 +43,11 @@
 
 <script lang="ts">
 import ModalBox from "@/components/Modal/index.vue";
-import Vue from "vue";
-import { fetchUpcomingLaunches } from '~/apis/Launched';
-import { Launch } from '~/types/Launch';
 import SearchFilter from '@/components/SearchFilter/index.vue';
 import Taps from '@/components/Taps/index.vue';
+import { fetchUpcomingLaunches } from '~/apis/Launched';
+import { Launch } from '~/types/Launch';
+import Vue from "vue";
 
 export default Vue.extend({
     name: "CardBox",
