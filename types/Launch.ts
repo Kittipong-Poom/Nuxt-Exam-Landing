@@ -7,11 +7,11 @@ export interface Launch {
     rocket: string;
     upcoming: boolean;
     crew: string[];
+    launchpad?: string; 
     links: {
       patch: {
         small: string | null;
         large: string | null;
       };
     };
-    launchpad?: string; 
   } 
