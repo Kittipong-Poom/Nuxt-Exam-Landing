@@ -164,7 +164,7 @@ export default Vue.extend({
             }
         }
     },
-    async created() {
+    async created(): Promise<void> {
     try {
         // 1. เรียกข้อมูลทั้งหมดของการปล่อยยานจาก API
         const allLaunches = await fetchUpcomingLaunches();

@@ -123,7 +123,7 @@ export default Vue.extend({
             this.selectedTab = tab;
             this.fetchLaunches();
         },
-        async fetchLaunches() {
+        async fetchLaunches(): Promise<void> {
             try {
                 const allLaunches: Launch[] = await fetchUpcomingLaunches();
                 const sortedLaunches = allLaunches.sort((a, b) => {
@@ -139,7 +139,7 @@ export default Vue.extend({
             }
         },
     },
-    created() {
+    created(): void {
         this.fetchLaunches();
     },
 });
