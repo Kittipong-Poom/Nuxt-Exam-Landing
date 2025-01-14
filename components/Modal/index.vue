@@ -14,9 +14,10 @@
                     <p>{{ launch?.date_utc ? new Date(launch.date_utc).toDateString() : 'No Date Available' }}</p>
                 </div>
             </div>
-            <div :class="{'border-b': crewTeams.length > 0}" class="mt-4 flex flex-col items-center  pb-4">
+            <div :class="{ 'border-b': crewTeams.length > 0 }" class="mt-4 flex flex-col items-center  pb-4">
                 <!-- Title -->
-                <h3 v-if="crewTeams.length > 0" class="bg-blue-700 text-white p-1 rounded-full font-medium w-[70px] text-center">Crews</h3>
+                <h3 v-if="crewTeams.length > 0"
+                    class="bg-blue-700 text-white p-1 rounded-full font-medium w-[70px] text-center">Crews</h3>
 
                 <!-- Grid -->
                 <div v-if="crewTeams.length > 0" class="mt-4 grid grid-cols-4 gap-6">
@@ -27,7 +28,7 @@
                         <p class="text-sm text-gray-500">{{ crew.agency }}</p>
                     </div>
                 </div>
-                
+
             </div>
             <!--- Rocket จรวด -->
             <div class="mt-4 flex flex-col items-center border-b pb-4">
@@ -165,25 +166,25 @@ export default Vue.extend({
         }
     },
     async created(): Promise<void> {
-    try {
-        // 1. เรียกข้อมูลทั้งหมดของการปล่อยยานจาก API
-        const allLaunches = await fetchUpcomingLaunches();
-        this.launches = allLaunches; // เก็บข้อมูลทั้งหมดของการปล่อยยานลงในตัวแปร launches
+        try {
+            // 1. เรียกข้อมูลทั้งหมดของการปล่อยยานจาก API
+            const allLaunches = await fetchUpcomingLaunches();
+            this.launches = allLaunches; // เก็บข้อมูลทั้งหมดของการปล่อยยานลงในตัวแปร launches
 
-        // 2. ตรวจสอบว่าการปล่อยยานตัวแรกในข้อมูลมีฐานปล่อยหรือไม่
-        if (this.launches.length > 0 && this.launches[0].launchpad) {
-            // ถ้ามีข้อมูลฐานปล่อย (launchpad) ในการปล่อยยานตัวแรก
-            // เรียกใช้ฟังก์ชัน fetchLaunchpadsById เพื่อดึงข้อมูลของฐานปล่อยจาก API โดยใช้ launchpadId
-            const launchpadData = await fetchLaunchpadsById(this.launches[0].launchpad);
-            
-            // 3. เก็บข้อมูลของฐานปล่อยที่ดึงมาในตัวแปร launchpad
-            this.launchpad = launchpadData;
+            // 2. ตรวจสอบว่าการปล่อยยานตัวแรกในข้อมูลมีฐานปล่อยหรือไม่
+            if (this.launches.length > 0 && this.launches[0].launchpad) {
+                // ถ้ามีข้อมูลฐานปล่อย (launchpad) ในการปล่อยยานตัวแรก
+                // เรียกใช้ฟังก์ชัน fetchLaunchpadsById เพื่อดึงข้อมูลของฐานปล่อยจาก API โดยใช้ launchpadId
+                const launchpadData = await fetchLaunchpadsById(this.launches[0].launchpad);
+
+                // 3. เก็บข้อมูลของฐานปล่อยที่ดึงมาในตัวแปร launchpad
+                this.launchpad = launchpadData;
+            }
+        } catch (error) {
+            // ถ้ามีข้อผิดพลาดในขั้นตอนใดก็ตาม จะแสดงข้อความใน console
+            console.error('Failed to fetch launches:', error);
         }
-    } catch (error) {
-        // ถ้ามีข้อผิดพลาดในขั้นตอนใดก็ตาม จะแสดงข้อความใน console
-        console.error('Failed to fetch launches:', error);
     }
-}
 
 });
 </script>

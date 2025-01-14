@@ -10,10 +10,8 @@
                     <div class="justify-between items-center p-4 grid grid-cols-2 gap-4">
                         <div class="flex items-center text-2xl">
                             <div class="mr-4">
-                                <img class="w-34 h-8" 
-                                v-if="launch.links.patch.small" 
-                                :src="launch.links.patch.small"
-                                :alt="launch.name" />
+                                <img class="w-34 h-8" v-if="launch.links.patch.small" :src="launch.links.patch.small"
+                                    :alt="launch.name" />
                             </div>
                             <div class="flex flex-col">
                                 <h2 class="font-medium text-md">{{ launch?.name }}</h2>
@@ -21,7 +19,8 @@
                         </div>
                         <div class="flex items-center justify-end">
                             <div class="mr-4  p-0.5 text-white w-16 flex">
-                                <h3 :class="{'bg-blue-700 p-0.5 rounded-lg  ': launch?.crew && launch.crew.length > 0}" class="text-center font-medium">
+                                <h3 :class="{ 'bg-blue-700 p-0.5 rounded-lg  ': launch?.crew && launch.crew.length > 0 }"
+                                    class="text-center font-medium">
                                     {{ launch?.crew && launch?.crew.length > 0 ? `${launch.crew.length} Crews` : ""
                                     }}
                                 </h3>
@@ -76,38 +75,31 @@ export default Vue.extend({
         };
     },
     computed: {
-    filteredLaunches(): Launch[] {
-        const query = this.searchQuery.toLowerCase();
-        return this.limitedLaunches.filter((launch) => {
-            // ฟิลเตอร์ตามแท็บที่เลือก
-            if (this.selectedTab === "all") {
-                return true;
-            }
-            if (this.selectedTab === "launched") {
-                return !launch.upcoming;
-            }
-            if (this.selectedTab === "upcoming") {
-                return launch.upcoming;
-            }
+        filteredLaunches(): Launch[] {
+            const query = this.searchQuery.toLowerCase();
+            return this.limitedLaunches.filter((launch) => {
+                // ฟิลเตอร์ตามแท็บที่เลือก
+                if (this.selectedTab === "all") {
+                    return true;
+                }
+                if (this.selectedTab === "launched") {
+                    return !launch.upcoming;
+                }
+                if (this.selectedTab === "upcoming") {
+                    return launch.upcoming;
+                }
 
-            return true;
-        }).filter((launch) => {
-            // แปลงวันที่เป็น String 
-            const launchDate = new Date(launch.date_utc).toDateString().toLowerCase();
-            
-            // ให้ค้นหาชื่อและ วันที่ได้
-            return launch.name.toLowerCase().includes(query) || launchDate.includes(query);
-        });
-    },
-},
-    methods: {
-        getLaunchStatus(upcoming: boolean): string {
-            if(upcoming) {
-                return "Upcoming"
-            } else {
-                return ""
-            }
+                return true;
+            }).filter((launch) => {
+                // แปลงวันที่เป็น String 
+                const launchDate = new Date(launch.date_utc).toDateString().toLowerCase();
+
+                // ให้ค้นหาชื่อและ วันที่ได้
+                return launch.name.toLowerCase().includes(query) || launchDate.includes(query);
+            });
         },
+    },
+    methods: {
         openModal(launch: Launch): void {
             this.selectedLaunch = launch;
             this.isModalOpen = true;
@@ -117,11 +109,18 @@ export default Vue.extend({
             this.selectedLaunch = null;
         },
         handleSearch(query: string): void {
-            this.searchQuery = query.trim(); 
-    },
+            this.searchQuery = query.trim();
+        },
         handleTabChange(tab: "all" | "launched" | "upcoming") {
             this.selectedTab = tab;
             this.fetchLaunches();
+        },
+        getLaunchStatus(upcoming: boolean): string {
+            if (upcoming) {
+                return "Upcoming"
+            } else {
+                return ""
+            }
         },
         async fetchLaunches(): Promise<void> {
             try {
